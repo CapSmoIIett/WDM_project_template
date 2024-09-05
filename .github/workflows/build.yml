@@ -11,7 +11,7 @@ jobs:
         platform: [x64]
     runs-on: windows-2022
     env:
-      Solution_Path: path\to\driver\solution.sln
+      Solution_Path: KeyLogger.sln
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -27,7 +27,10 @@ jobs:
           Platform: ${{ matrix.platform }}
 
       - name: Test
-        run: ls
+        run: |
+          ls
+          cd x64/Debug
+          ls
 
 #      - name: Release
 #        uses: softprops/action-gh-release@v1
