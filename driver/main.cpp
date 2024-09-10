@@ -1,6 +1,6 @@
 #define _AMD64_
-#include <ntddk.h>
-//#include <wdm.h>
+#include "ntddk.h"
+#include <wdm.h>
 
 /*
  *
@@ -13,6 +13,8 @@ void SampleUnload
 	UNREFERENCED_PARAMETER(DriverObject);
 		KdPrint(("Sample driver Unload called\n"));
 }
+
+
 extern "C"
 NTSTATUS
 DriverEntry

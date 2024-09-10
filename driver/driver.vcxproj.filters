@@ -19,7 +19,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Inf Include="KeyLogger.inf">
+    <Inf Include="driver.inf">
       <Filter>Driver Files</Filter>
     </Inf>
   </ItemGroup>
