@@ -31,8 +31,11 @@ jobs:
 
       - name: Test
         run: |
-          cd ${{ env.Platform }}/${{ env.Configuration }}
-          ls
+          dir 
+          cd ${{ env.Platform }}
+          dir 
+          cd ${{ env.Configuration }}
+          dir
 
 #      - name: Release
 #        uses: softprops/action-gh-release@v1
