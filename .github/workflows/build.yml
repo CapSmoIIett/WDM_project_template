@@ -32,13 +32,9 @@ jobs:
           cd ${{ matrix.platform }}/${{ matrix.configuration }}
           dir
 
-      - name: Archive
-        run: |
-          Compress-Archive ${{ matrix.platform }}/${{ matrix.configuration }} ${{ matrix.configuration }}.zip
-
       - name: Release build
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.configuration }}Build
-          path: ${{ matrix.configuration }}.zip
+          path: ${{ matrix.platform }}/${{ matrix.configuration }}
