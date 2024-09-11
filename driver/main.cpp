@@ -1,38 +1,33 @@
 #include <ntddk.h>
 
-#define DRIVER_TAG 'dcba'
-
-UNICODE_STRING g_RegistryPath;
-
-void SampleUnload(_In_ PDRIVER_OBJECT DriverObject) {
+/*
+ *
+ */
+void UnloadDriver
+(
+	_In_ PDRIVER_OBJECT DriverObject
+)
+{
 	UNREFERENCED_PARAMETER(DriverObject);
 
-	ExFreePool(g_RegistryPath.Buffer);
-	KdPrint(("Sample driver Unload called\n"));
+	KdPrint(("Unload called\n"));
 }
 
+/*
+ *
+ */
 extern "C" NTSTATUS
-DriverEntry(_In_ PDRIVER_OBJECT DriverObject, _In_ PUNICODE_STRING RegistryPath) {
-	//g_RegistryPath.Buffer = (WCHAR*)ExAllocatePoolWithTag(PagedPool, RegistryPath->Length, DRIVER_TAG);
+DriverEntry
+(
+	PDRIVER_OBJECT DriverObject,
+	_In_ PUNICODE_STRING RegistryPath
+)
+{
+	UNREFERENCED_PARAMETER(RegistryPath);
 
-	if (g_RegistryPath.Buffer == nullptr) {
-		KdPrint(("Failed to allocate memory\n"));
-		return STATUS_INSUFFICIENT_RESOURCES;
-	}
+	DriverObject->DriverUnload = UnloadDriver;
 
-	g_RegistryPath.MaximumLength = RegistryPath->Length;
-	RtlCopyUnicodeString(&g_RegistryPath, (PCUNICODE_STRING)RegistryPath);
-	KdPrint(("original registry path: %wZ\n", RegistryPath));
-	KdPrint(("Copied registry path: %wZ\n", &g_RegistryPath));
-
-	DriverObject->DriverUnload = SampleUnload;
-
-	RTL_OSVERSIONINFOW info = { sizeof(info) };
-	RtlGetVersion(&info);
-	KdPrint(("Windows Version: %d.%d.%d\n", 
-		info.dwMajorVersion, info.dwMinorVersion, info.dwBuildNumber));
-
-	KdPrint(("Sample driver initialized successfully\n"));
+	KdPrint(("Entry called\n"));
 
 	return STATUS_SUCCESS;
 }
