@@ -29,7 +29,7 @@ jobs:
           Configuration: ${{ matrix.configuration }}
           Platform: ${{ matrix.platform }}
 
-      - name: Test
+      - name: Build result
         run: |
           cd ${{ matrix.platform }}/${{ matrix.configuration }}
           dir
@@ -37,10 +37,6 @@ jobs:
       - name: Archive
         run: |
           Compress-Archive ${{ matrix.platform }}/${{ matrix.configuration }} ${{ matrix.configuration }}.zip
-
-      - name: Test
-        run: |
-          dir
 
       - name: Release build
         if: always()
